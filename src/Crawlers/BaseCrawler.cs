@@ -17,8 +17,8 @@ namespace Monera.Crawling.DGS.Crawlers
             try
             {
                 var pageUrls = GetUrls(url);
-                var tasks = pageUrls.Select(pageUrl => Task<CrawlerResult>.Factory.StartNew((link) => Run((string) link), pageUrl)).ToList();
-                Task.WhenAll(tasks);
+                var tasks = pageUrls.Select(pageUrl => Task<CrawlerResult>.Factory.StartNew((link) => Run((string) link), pageUrl)).ToArray();
+                Task.WaitAll(tasks);
 
                 var results = tasks.Select(task => task.Result).ToList();
                 if (!results.Any()) return;
@@ -42,8 +42,8 @@ namespace Monera.Crawling.DGS.Crawlers
             }
         }
 
-        protected abstract List<string> GetUrls(string url);
-        protected abstract CrawlerResult Run(string url);
+        public abstract List<string> GetUrls(string url);
+        public abstract CrawlerResult Run(string url);
         protected abstract void AddItems(DgsContext context, List<CrawlerResult> crawlerResult);
     }
 }

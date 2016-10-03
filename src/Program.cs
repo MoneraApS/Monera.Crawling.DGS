@@ -16,14 +16,13 @@ namespace Monera.Crawling.DGS
             try
             {
                 var urls = new List<string>();
-                using (var fs = new FileStream(ConfigurationHelper.GetValue<string>(""), FileMode.Open))
+                using (var fs = new FileStream(ConfigurationHelper.GetValue<string>("PathFile"), FileMode.Open))
                 {
                     using (var reader = new StreamReader(fs, Encoding.UTF8))
                     {
-                        var line = reader.ReadLine();
                         while (!reader.EndOfStream)
                         {
-                            line = reader.ReadLine();
+                            var line = reader.ReadLine();
                             if (string.IsNullOrEmpty(line)) continue;
 
                             urls.Add(line.Trim());
@@ -43,6 +42,7 @@ namespace Monera.Crawling.DGS
             {
                 Console.WriteLine(ex);
             }
+
             Console.WriteLine("DONE!");
             Console.ReadLine();
         }

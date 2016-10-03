@@ -42,7 +42,7 @@ namespace Monera.Crawling.DGS.Crawlers
         protected override WebRequest GetWebRequest(Uri address)
         {
             WebRequest w = base.GetWebRequest(address);
-            w.Timeout = 30 * 1000;
+            w.Timeout = 120 * 1000;
             return w;
         }
     }
