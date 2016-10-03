@@ -146,6 +146,7 @@ namespace Monera.Crawling.DGS.Crawlers
         {
             foreach (var result in crawlerResult)
             {
+                if (!result.Items.Any()) continue;
                 context.CrawlItems.AddRange(result.Items);
             }
         }

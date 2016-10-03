@@ -25,15 +25,17 @@ namespace Monera.Crawling.DGS.Crawlers
 
                 using (var db = new DgsContext())
                 {
-                    db.CommandTimeout = csCommandTimeout;
-                    db.WithNOLOCK<int>((tx) =>  // select with unlock - much faster for bigdata
-                    {
-                        AddItems(db, results);
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.WriteLine("Start save {0}, {1}", url, DateTime.Now);
+                    Console.ForegroundColor = ConsoleColor.White;
 
-                        db.SaveChanges();
-                        tx.Commit();
-                        return 0;
-                    });
+                    AddItems(db, results);
+
+                    db.SaveChanges();
+
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("End save {0}, {1}", url, DateTime.Now);
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             catch (Exception ex)
