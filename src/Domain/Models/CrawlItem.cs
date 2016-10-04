@@ -17,7 +17,8 @@ namespace Monera.Crawling.DGS.Domain.Models
         public string CompanyAddress { get; set; }
         public string CompanyEmail { get; set; }
         public string SourceUrl { get; set; }
-        public string MarketingBlock { get; set; }
+        public string Source { get; set; }
+        public bool MarketingBlock { get; set; }
         public bool Promoted { get; set; }
     }
 }

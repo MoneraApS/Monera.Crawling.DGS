@@ -11,8 +11,10 @@ namespace Monera.Crawling.DGS.Crawlers
 {
     public class DgsCrawler : BaseCrawler
     {
+        private string source;
         public override List<string> GetUrls(string url)
         {
+            this.source = url;
             Console.WriteLine("Parse {0} to pagingUrls", url);
             try
             {
@@ -106,7 +108,7 @@ namespace Monera.Crawling.DGS.Crawlers
 
             foreach (var item in items)
             {
-                var crawlItem = new CrawlItem { SourceUrl = url, CompanyEmail = string.Empty };
+                var crawlItem = new CrawlItem { SourceUrl = url, Source = this.source, CompanyEmail = string.Empty };
 
                 var companyName = item.SelectSingleNode(".//span[@class='hit-company-name-ellipsis']");
                 if (companyName != null) crawlItem.CompanyName = companyName.InnerText;
@@ -121,6 +123,10 @@ namespace Monera.Crawling.DGS.Crawlers
                 if (companyPhone?.Attributes["data-phone"] != null)
                 {
                     crawlItem.CompanyPhone = companyPhone.Attributes["data-phone"].Value;
+                    if (!string.IsNullOrEmpty(crawlItem.CompanyPhone))
+                    {
+                        crawlItem.CompanyPhone = crawlItem.CompanyPhone.Replace(" ", "");
+                    }
                 }
                     
                 var companyAddress = item.SelectNodes(".//div[contains(@class, 'hit-company-location')]/descendant::span");
@@ -130,7 +136,7 @@ namespace Monera.Crawling.DGS.Crawlers
                 }
 
                 var marketingBlock = item.SelectSingleNode(".//a[@class='addax addax-cs_hl_hit_organization_a_click']");
-                crawlItem.MarketingBlock = marketingBlock != null ? "TRUE" : "FALSE";
+                crawlItem.MarketingBlock = marketingBlock != null;
 
                 result.Items.Add(crawlItem);
             }

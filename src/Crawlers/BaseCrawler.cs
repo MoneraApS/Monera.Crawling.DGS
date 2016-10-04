@@ -31,7 +31,7 @@ namespace Monera.Crawling.DGS.Crawlers
 
                     AddItems(db, results);
 
-                    db.SaveChanges();
+                    db.BulkSaveChanges(bulk => bulk.BatchSize = 500);
 
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("End save {0}, {1}", url, DateTime.Now);

@@ -32,10 +32,26 @@ namespace Monera.Crawling.DGS
 
                 if (urls.Any())
                 {
-                    Parallel.ForEach(urls, (url) =>
+                    var groups = new Dictionary<int, List<string>>();
+                    var list = new List<string>();
+                    for (int i = 0; i < urls.Count; i++)
                     {
-                        (new DgsCrawler()).Execute(url);
-                    });
+                        if (i > 0 && i%2 == 0)
+                        {
+                            groups.Add(i, list);
+                            list = new List<string>();
+                        }
+                        list.Add(urls[i]);
+                    }
+                    if (list.Any()) groups.Add(urls.Count, list);
+
+                    foreach (var group in groups)
+                    {
+                        Parallel.ForEach(group.Value, (url) =>
+                        {
+                            (new DgsCrawler()).Execute(url);
+                        });
+                    }
                 }
             }
             catch (Exception ex)

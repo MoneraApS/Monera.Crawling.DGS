@@ -1,2 +1,6 @@
 http://www.degulesider.dk/t%C3%B8mrere/s%C3%B8g.cs
 http://www.degulesider.dk/t%C3%A6pperens/s%C3%B8g.cs
+http://www.degulesider.dk/snedkere/s%C3%B8g.cs
+http://www.degulesider.dk/byggemarkeder/s%C3%B8g.cs
+http://www.degulesider.dk/cykelforretninger/s%C3%B8g.cs
+http://www.degulesider.dk/cykelsmede/s%C3%B8g.cs
