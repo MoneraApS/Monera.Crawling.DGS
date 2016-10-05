@@ -12,7 +12,7 @@ namespace Monera.Crawling.DGS.Crawlers
         private const int csProcessThreshold = 1000; // Size of block to load data
         private static readonly int csCommandTimeout = 180;
 
-        public void Execute(string url)
+        public List<CrawlerResult> Execute(string url)
         {
             try
             {
@@ -21,7 +21,7 @@ namespace Monera.Crawling.DGS.Crawlers
                 Task.WaitAll(tasks);
 
                 var results = tasks.Select(task => task.Result).ToList();
-                if (!results.Any()) return;
+                if (!results.Any()) return new List<CrawlerResult>();
 
                 using (var db = new DgsContext())
                 {
@@ -37,11 +37,15 @@ namespace Monera.Crawling.DGS.Crawlers
                     Console.WriteLine("End save {0}, {1}", url, DateTime.Now);
                     Console.ForegroundColor = ConsoleColor.White;
                 }
+
+                return results;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
+
+            return new List<CrawlerResult>();
         }
 
         public abstract List<string> GetUrls(string url);

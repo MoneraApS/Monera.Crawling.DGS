@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Monera.Crawling.DGS.Crawlers;
+using Monera.Crawling.DGS.Domain.Models;
 using Monera.Crawling.DGS.Helpers;
+using OfficeOpenXml;
 
 namespace Monera.Crawling.DGS
 {
@@ -45,13 +47,30 @@ namespace Monera.Crawling.DGS
                     }
                     if (list.Any()) groups.Add(urls.Count, list);
 
+                    var outputs = new List<CrawlItem>();
                     foreach (var group in groups)
                     {
                         Parallel.ForEach(group.Value, (url) =>
                         {
-                            (new DgsCrawler()).Execute(url);
+                            var results = (new DgsCrawler()).Execute(url);
+                            foreach (var result in results)
+                            {
+                                if (!result.Items.Any()) continue;
+                                outputs.AddRange(result.Items);
+                            }
                         });
                     }
+
+                    try
+                    {
+                        ExportExcel(outputs);
+                    }
+                    catch (Exception eex)
+                    {
+                        Console.WriteLine("Export problem");
+                        Console.WriteLine(eex);
+                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -61,6 +80,17 @@ namespace Monera.Crawling.DGS
 
             Console.WriteLine("DONE!");
             Console.ReadLine();
+        }
+
+        private static void ExportExcel(List<CrawlItem> data)
+        {
+            var excel = new ExcelPackage();
+            var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
+            workSheet.Cells[1, 1].LoadFromCollection(data, true);
+            using (var fs = new FileStream(Path.Combine(ConfigurationHelper.GetValue<string>("OutputPathFolder"), DateTime.Now.Ticks + ".xlsx"), FileMode.OpenOrCreate))
+            {
+                excel.SaveAs(fs);
+            }
         }
     }
 }

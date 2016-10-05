@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Monera.Crawling.DGS.Domain.Data;
 using Monera.Crawling.DGS.Domain.Models;
+using Polly;
 
 namespace Monera.Crawling.DGS.Crawlers
 {
@@ -71,14 +72,21 @@ namespace Monera.Crawling.DGS.Crawlers
             Console.WriteLine("Parse {0}", url);
             var html = string.Empty;
 
+            var policy = Policy.Handle<Exception>().WaitAndRetry(
+                retryCount: 3, // Retry 3 times
+                sleepDurationProvider: attempt => TimeSpan.FromSeconds(3));
+
             try
             {
-                using (var client = new CrawlerClient())
+                policy.Execute(() =>
                 {
-                    client.Encoding = Encoding.UTF8;
-                    var str = client.DownloadString(url);
-                    html = str;
-                }
+                    using (var client = new CrawlerClient())
+                    {
+                        client.Encoding = Encoding.UTF8;
+                        var str = client.DownloadString(url);
+                        html = str;
+                    }
+                });
             }
             catch (Exception)
             {
@@ -114,8 +122,8 @@ namespace Monera.Crawling.DGS.Crawlers
                 if (companyName != null) crawlItem.CompanyName = companyName.InnerText;
 
                 var promoted =
-                    item.SelectSingleNode(".//div[@class='hit-logotype-container']/a[contains(@class, 'hit-empty-logo')]");
-                crawlItem.Promoted = promoted == null;
+                    item.SelectSingleNode(".//div[@class='hit-logotype-container']/*[contains(@class, 'hit-logotype-link')]");
+                crawlItem.Promoted = promoted != null;
 
                 var companyPhone =
                     item.SelectSingleNode(
