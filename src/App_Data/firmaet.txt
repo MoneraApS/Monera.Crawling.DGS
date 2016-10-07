@@ -4,3 +4,4 @@ http://www.degulesider.dk/snedkere/s%C3%B8g.cs
 http://www.degulesider.dk/byggemarkeder/s%C3%B8g.cs
 http://www.degulesider.dk/cykelforretninger/s%C3%B8g.cs
 http://www.degulesider.dk/cykelsmede/s%C3%B8g.cs
+http://www.degulesider.dk/dyrehandlere/s%C3%B8g.cs
