@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Monera.Crawling.DGS.Crawlers;
+using Monera.Crawling.DGS.Domain.Data;
 using Monera.Crawling.DGS.Domain.Models;
 using Monera.Crawling.DGS.Helpers;
 using OfficeOpenXml;
@@ -59,6 +60,28 @@ namespace Monera.Crawling.DGS
                                 outputs.AddRange(result.Items);
                             }
                         });
+                    }
+
+                    var now = DateTime.UtcNow;
+                    outputs.ForEach(item => item.CreatedDate = now);
+
+                    using (var db = new DgsContext())
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        Console.WriteLine("Start save {0}", DateTime.Now);
+
+                        var existedItems = db.CrawlItems.AsNoTracking().ToList();
+                        var missingRecords = outputs.Where(x => existedItems.All(z => z.CompanyName != x.CompanyName)).ToList();
+                        db.CrawlItems.AddRange(missingRecords);
+                        db.BulkSaveChanges(bulk => bulk.BatchSize = 500);
+
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("End save {0}", DateTime.Now);
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        outputs = new List<CrawlItem>();
+                        outputs.AddRange(existedItems);
+                        outputs.AddRange(missingRecords);
                     }
 
                     try
