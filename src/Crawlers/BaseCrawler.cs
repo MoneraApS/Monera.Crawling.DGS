@@ -23,21 +23,6 @@ namespace Monera.Crawling.DGS.Crawlers
                 var results = tasks.Select(task => task.Result).ToList();
                 if (!results.Any()) return new List<CrawlerResult>();
 
-                using (var db = new DgsContext())
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkBlue;
-                    Console.WriteLine("Start save {0}, {1}", url, DateTime.Now);
-                    Console.ForegroundColor = ConsoleColor.White;
-
-                    AddItems(db, results);
-
-                    db.BulkSaveChanges(bulk => bulk.BatchSize = 500);
-
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("End save {0}, {1}", url, DateTime.Now);
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-
                 return results;
             }
             catch (Exception ex)

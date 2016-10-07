@@ -92,6 +92,10 @@
     <Compile Include="Migrations\201610041058104_AddSourceField.Designer.cs">
       <DependentUpon>201610041058104_AddSourceField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610070316035_AddCreatedDateToCrawlItem.cs" />
+    <Compile Include="Migrations\201610070316035_AddCreatedDateToCrawlItem.Designer.cs">
+      <DependentUpon>201610070316035_AddCreatedDateToCrawlItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610041058104_AddSourceField.resx">
       <DependentUpon>201610041058104_AddSourceField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610070316035_AddCreatedDateToCrawlItem.resx">
+      <DependentUpon>201610070316035_AddCreatedDateToCrawlItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
