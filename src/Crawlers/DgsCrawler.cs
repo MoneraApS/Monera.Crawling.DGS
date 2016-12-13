@@ -13,6 +13,9 @@ namespace Monera.Crawling.DGS.Crawlers
     public class DgsCrawler : BaseCrawler
     {
         private string source;
+
+        public override string Name => "degulesider.dk";
+
         public override List<string> GetUrls(string url)
         {
             this.source = url;
@@ -96,7 +99,6 @@ namespace Monera.Crawling.DGS.Crawlers
                 Console.ForegroundColor = ConsoleColor.White;
                 return new CrawlerResult();
             }
-            
 
             if (string.IsNullOrEmpty(html))
             {
@@ -158,15 +160,6 @@ namespace Monera.Crawling.DGS.Crawlers
             Console.ForegroundColor = ConsoleColor.White;
 
             return result;
-        }
-
-        protected override void AddItems(DgsContext context, List<CrawlerResult> crawlerResult)
-        {
-            foreach (var result in crawlerResult)
-            {
-                if (!result.Items.Any()) continue;
-                context.CrawlItems.AddRange(result.Items);
-            }
         }
     }
 }

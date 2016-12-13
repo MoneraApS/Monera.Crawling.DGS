@@ -35,6 +35,6 @@ namespace Monera.Crawling.DGS.Crawlers
 
         public abstract List<string> GetUrls(string url);
         public abstract CrawlerResult Run(string url);
-        protected abstract void AddItems(DgsContext context, List<CrawlerResult> crawlerResult);
+        public abstract string Name { get; }
     }
 }

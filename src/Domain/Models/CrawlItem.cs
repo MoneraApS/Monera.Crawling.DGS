@@ -20,6 +20,7 @@ namespace Monera.Crawling.DGS.Domain.Models
         public string Source { get; set; }
         public bool MarketingBlock { get; set; }
         public bool Promoted { get; set; }
+        public string Category { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }

@@ -13,7 +13,7 @@ using OfficeOpenXml;
 namespace Monera.Crawling.DGS.Test
 {
     [TestClass]
-    public class CrawlerTest
+    public class DgsCrawlerTest
     {
         [TestMethod]
         public void TestCrawlerGetUrls()

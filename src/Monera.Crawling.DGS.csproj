@@ -71,10 +71,12 @@
     </Compile>
     <Compile Include="Crawlers\CrawlerResult.cs" />
     <Compile Include="Crawlers\DgsCrawler.cs" />
+    <Compile Include="Crawlers\KrakCrawler.cs" />
     <Compile Include="Domain\Data\DbContextConfiguration.cs" />
     <Compile Include="Domain\Data\DbContextExtensions.cs" />
     <Compile Include="Domain\Data\DgsContext.cs" />
     <Compile Include="Domain\Models\CrawlItem.cs" />
+    <Compile Include="CrawlerFactory.cs" />
     <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Migrations\201610021502386_Initial.cs" />
     <Compile Include="Migrations\201610021502386_Initial.Designer.cs">
@@ -91,6 +93,10 @@
     <Compile Include="Migrations\201610070316035_AddCreatedDateToCrawlItem.cs" />
     <Compile Include="Migrations\201610070316035_AddCreatedDateToCrawlItem.Designer.cs">
       <DependentUpon>201610070316035_AddCreatedDateToCrawlItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612131425080_AddCategory.cs" />
+    <Compile Include="Migrations\201612131425080_AddCategory.Designer.cs">
+      <DependentUpon>201612131425080_AddCategory.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -115,9 +121,13 @@
     <EmbeddedResource Include="Migrations\201610070316035_AddCreatedDateToCrawlItem.resx">
       <DependentUpon>201610070316035_AddCreatedDateToCrawlItem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612131425080_AddCategory.resx">
+      <DependentUpon>201612131425080_AddCategory.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\firmaet.txt" />
+    <None Include="App_Data\krak.dk" />
+    <None Include="App_Data\degulesider.dk" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Output\" />

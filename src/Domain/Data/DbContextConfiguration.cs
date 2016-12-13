@@ -39,10 +39,8 @@ namespace Monera.Crawling.DGS.Domain.Data
             {
                 lock (suspendedCounterLocker)
                 {
-                    if (value)
-                        suspendedCounter++;
-                    else
-                        suspendedCounter = Math.Max(0, suspendedCounter - 1);
+                    if (value) suspendedCounter++;
+                    else suspendedCounter = Math.Max(0, suspendedCounter - 1);
 
                     CallContext.LogicalSetData("SuspendExecutionStrategy", suspendedCounter > 0);
                 }
