@@ -88,10 +88,11 @@ namespace Monera.Crawling.DGS.Crawlers
                     }
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Request timeout {0}", url);
+                Console.WriteLine("Request error {0}", url);
+                Console.WriteLine(ex);
                 Console.ForegroundColor = ConsoleColor.White;
                 return new CrawlerResult();
             }
@@ -119,7 +120,10 @@ namespace Monera.Crawling.DGS.Crawlers
                 var crawlItem = new CrawlItem { SourceUrl = url, Source = this.source, CompanyEmail = string.Empty };
 
                 var companyName = item.SelectSingleNode(".//span[@class='hit-company-name-ellipsis']");
-                if (companyName != null) crawlItem.CompanyName = companyName.InnerText;
+                if (!string.IsNullOrEmpty(companyName?.InnerText))
+                {
+                    crawlItem.CompanyName = companyName.InnerText.Trim(new char[] { ' ', '\n' });
+                }
 
                 var promoted =
                     item.SelectSingleNode(".//div[@class='hit-logotype-container']/*[contains(@class, 'hit-logotype-link')]");

@@ -73,7 +73,7 @@ namespace Monera.Crawling.DGS
                         var existedItems = db.CrawlItems.AsNoTracking().ToList();
                         var missingRecords = outputs.Where(x => existedItems.All(z => z.CompanyName != x.CompanyName)).ToList();
                         db.CrawlItems.AddRange(missingRecords);
-                        db.BulkSaveChanges(bulk => bulk.BatchSize = 500);
+                        db.SaveChanges();
 
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                         Console.WriteLine("End save {0}", DateTime.Now);
