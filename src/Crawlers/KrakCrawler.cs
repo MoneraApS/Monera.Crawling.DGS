@@ -53,6 +53,11 @@ namespace Monera.Crawling.DGS.Crawlers
 
                 var parts = url.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                 this.category = parts[2];
+                if (!string.IsNullOrEmpty(category))
+                {
+                    this.category = this.category.Replace("%C3%A6", "æ").Replace("%C3%B8", "ø").Replace("%C3%85", "å");
+                }
+
                 for (var i = 1; i <= totalPages; i++)
                 {
                     results.Add($"{parts[0]}//{parts[1]}/{parts[2]}/p:{i}/{parts[3]}");
