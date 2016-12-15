@@ -13,6 +13,7 @@ namespace Monera.Crawling.DGS.Crawlers
     public class DgsCrawler : BaseCrawler
     {
         private string source;
+        private string category;
 
         public override string Name => "degulesider.dk";
 
@@ -54,6 +55,7 @@ namespace Monera.Crawling.DGS.Crawlers
                 var results = new List<string>();
 
                 var parts = url.Split(new char[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
+                this.category = parts[2];
                 for (var i = 1; i <= totalPages; i++)
                 {
                     results.Add($"{parts[0]}//{parts[1]}/{parts[2]}/p:{i}/{parts[3]}");
@@ -119,7 +121,7 @@ namespace Monera.Crawling.DGS.Crawlers
 
             foreach (var item in items)
             {
-                var crawlItem = new CrawlItem { SourceUrl = url, Source = this.source, CompanyEmail = string.Empty };
+                var crawlItem = new CrawlItem { SourceUrl = url, Source = this.source, Category = this.category, CompanyEmail = string.Empty };
 
                 var companyName = item.SelectSingleNode(".//span[@class='hit-company-name-ellipsis']");
                 if (!string.IsNullOrEmpty(companyName?.InnerText))

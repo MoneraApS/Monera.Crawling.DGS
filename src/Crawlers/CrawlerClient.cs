@@ -37,6 +37,10 @@ namespace Monera.Crawling.DGS.Crawlers
             }
 
             this.Proxy = proxy;
+
+            string authInfo = ConfigurationHelper.GetValue<string>("ProxyLogin") + ":" + ConfigurationHelper.GetValue<string>("ProxyPassword");
+            authInfo = Convert.ToBase64String(Encoding.Default.GetBytes(authInfo));
+            this.Headers["Proxy-Authorization"] = "Basic " + authInfo;
         }
 
         protected override WebRequest GetWebRequest(Uri address)
