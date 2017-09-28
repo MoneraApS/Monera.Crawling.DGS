@@ -12,6 +12,10 @@ namespace Monera.Crawling.DGS.Domain.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        public string VatNumber { get; set; }
+        public string Employees { get; set; }
+        public string DirectUrl { get; set; }
         public string CompanyName { get; set; }
         public string CompanyPhone { get; set; }
         public string CompanyAddress { get; set; }

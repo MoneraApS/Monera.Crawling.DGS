@@ -49,6 +49,10 @@
       <HintPath>packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Polly, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Polly.4.3.0\lib\net45\Polly.dll</HintPath>
       <Private>True</Private>
@@ -77,6 +81,7 @@
     <Compile Include="Domain\Data\DgsContext.cs" />
     <Compile Include="Domain\Models\CrawlItem.cs" />
     <Compile Include="CrawlerFactory.cs" />
+    <Compile Include="Domain\Models\CvrApiDTO.cs" />
     <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Migrations\201610021502386_Initial.cs" />
     <Compile Include="Migrations\201610021502386_Initial.Designer.cs">
@@ -97,6 +102,10 @@
     <Compile Include="Migrations\201612131425080_AddCategory.cs" />
     <Compile Include="Migrations\201612131425080_AddCategory.Designer.cs">
       <DependentUpon>201612131425080_AddCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709281233387_morefields.cs" />
+    <Compile Include="Migrations\201709281233387_morefields.Designer.cs">
+      <DependentUpon>201709281233387_morefields.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -123,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612131425080_AddCategory.resx">
       <DependentUpon>201612131425080_AddCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709281233387_morefields.resx">
+      <DependentUpon>201709281233387_morefields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
